@@ -21,5 +21,5 @@ main = hspec $ do
 	  sumDigits 1234 `shouldBe` 10
 
 
-sumDigits :: Int -> Int
+sumDigits :: Integer -> Integer
 sumDigits n = (n `mod` 10) + if n >= 10 then (sumDigits (n `div` 10)) else 0
