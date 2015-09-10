@@ -76,7 +76,6 @@ head' [] x = x
 head' (h:t) _ = h
 
 isSmith :: Integer -> Bool
-isSmith n = let facts = factors n
-  in if (null facts)
-  then False
-  else (sumDigits n) == foldl1 (+) (map sumDigits (factors n))
+isSmith n = if (null $ factors n)
+            then False
+            else (sumDigits n) == foldl1 (+) (map sumDigits (factors n))
