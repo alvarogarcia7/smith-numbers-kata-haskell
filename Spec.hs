@@ -23,3 +23,17 @@ main = hspec $ do
 
 sumDigits :: Integer -> Integer
 sumDigits n = (n `mod` 10) + if n >= 10 then (sumDigits (n `div` 10)) else 0
+
+isPrime n = length [i|i<-[2..n], n `mod` i == 0] == 1
+
+factors :: Integer -> [[Integer]]
+factors n = [[i,n `div` i]|i<-[2..n], n `mod` i == 0, isPrime i] 
+
+factors' :: Integer -> [Integer] -> [Integer]
+factors' 1 primes = primes 
+factors' n current = factors' (n `div` i) (i:current)
+    where i = head [i|i<-[head' current 2..n], n `mod` i == 0, isPrime i]
+
+head' :: [a] -> a -> a
+head' [] x = x
+head' (h:t) _ = h
