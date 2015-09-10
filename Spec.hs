@@ -50,6 +50,9 @@ main = hspec $ do
 	it "should detect non-Smith numbers" $ do
 	  isSmith 6 `shouldBe` False
 
+	it "should detect all OEIS Smith numbers" $ do
+	  filter (\x->x == False) (map (\x -> isSmith x) [4, 22, 27, 58, 85, 94, 121, 166, 202, 265, 274, 319, 346, 355, 378, 382, 391, 438, 454, 483, 517, 526, 535, 562, 576, 588, 627, 634, 636, 645, 648, 654, 663, 666, 690, 706, 728, 729, 762, 778, 825, 852, 861, 895, 913, 915, 922, 958, 985, 1086, 1111, 1165]) `shouldBe` []
+
 
 sumDigits :: Integer -> Integer
 sumDigits n = (n `mod` 10) + if n >= 10 then (sumDigits (n `div` 10)) else 0
