@@ -57,7 +57,10 @@ main = hspec $ do
 sumDigits :: Integer -> Integer
 sumDigits n = (n `mod` 10) + if n >= 10 then (sumDigits (n `div` 10)) else 0
 
-isPrime n = length [i|i<-[2..n], n `mod` i == 0] == 1
+divides :: Integer -> Integer -> Bool
+divides divisor n = n `mod` divisor == 0
+
+isPrime n = length [i|i<-[2..n], i `divides` n] == 1
 
 factors :: Integer -> [Integer]
 factors n = reverse $ factors' n []
@@ -66,7 +69,7 @@ factors' :: Integer -> [Integer] -> [Integer]
 factors' 0 primes = []
 factors' 1 primes = primes 
 factors' n current = factors' (n `div` i) (i:current)
-    where i = head [i|i<-[head' current 2..n], n `mod` i == 0, isPrime i]
+    where i = head [i|i<-[head' current 2..n], i `divides` n, isPrime i]
 
 head' :: [a] -> a -> a
 head' [] x = x
