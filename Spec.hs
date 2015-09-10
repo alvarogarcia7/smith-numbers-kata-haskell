@@ -34,6 +34,22 @@ main = hspec $ do
         it "should decompose a non-prime with repeated factors" $ do
 	  factors 8 `shouldBe` [2, 2, 2]
 
+    describe "smith numbers" $ do
+        it "should detect the corner cases" $ do
+	  isSmith 0 `shouldBe` False
+	  isSmith 1 `shouldBe` False
+
+        it "should detect positively the prime numbers" $ do
+	  isSmith 2 `shouldBe` True
+	  isSmith 3 `shouldBe` True
+	  isSmith 5 `shouldBe` True
+
+	it "should detect the smallest, composite Smith number" $ do
+	  isSmith 4 `shouldBe` True
+
+	it "should detect non-Smith numbers" $ do
+	  isSmith 6 `shouldBe` False
+
 
 sumDigits :: Integer -> Integer
 sumDigits n = (n `mod` 10) + if n >= 10 then (sumDigits (n `div` 10)) else 0
@@ -52,3 +68,9 @@ factors' n current = factors' (n `div` i) (i:current)
 head' :: [a] -> a -> a
 head' [] x = x
 head' (h:t) _ = h
+
+isSmith :: Integer -> Bool
+isSmith n = let facts = factors n
+  in if (null facts)
+  then False
+  else (sumDigits n) == foldl1 (+) (map sumDigits (factors n))
