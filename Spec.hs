@@ -31,6 +31,9 @@ main = hspec $ do
         it "should decompose a non-prime" $ do
 	  factors 6 `shouldBe` [2, 3]
 
+        it "should decompose a non-prime with repeated factors" $ do
+	  factors 8 `shouldBe` [2, 2, 2]
+
 
 sumDigits :: Integer -> Integer
 sumDigits n = (n `mod` 10) + if n >= 10 then (sumDigits (n `div` 10)) else 0
