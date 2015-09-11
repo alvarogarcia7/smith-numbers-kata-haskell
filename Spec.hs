@@ -60,6 +60,8 @@ main = do
         it "n>=sum_digits factors n" $ do
           (filter (not . id) $ map property_n_ge_sumDigits_factors_n  [2..11000]) `shouldBe` []
 
+        it "n>=sum_digits n" $ do
+          (filter (not . id) $ map property_n_ge_sumDigits_factors_n  [2..11000]) `shouldBe` []
 
 sumDigits :: Integer -> Integer
 sumDigits 0 = 0
@@ -93,8 +95,8 @@ isSmith n = if (null . factors) n
 
 property_a_prime_is_smith (Prime x) = isSmith x
 
-property_sumDigits_ge_n :: Integer -> Bool
-property_sumDigits_ge_n n = (n - (sumDigits n)) >= 0
+property_n_ge_sumDigits :: Integer -> Bool
+property_n_ge_sumDigits n = n >= (sumDigits n)
 
 property_n_ge_sumDigits_factors_n :: Integer -> Bool
 property_n_ge_sumDigits_factors_n n = (n - (foldl1 (+) (map sumDigits (factors n)))) >= 0
