@@ -69,11 +69,11 @@ factors' :: Integer -> [Integer] -> [Integer]
 factors' 0 primes = []
 factors' 1 primes = primes 
 factors' n current = factors' (n `div` i) (i:current)
-    where i = head [i|i<-[head' current 2..n], i `divides` n, isPrime i]
+    where i = head [i|i<-[headOr current 2..n], i `divides` n, isPrime i]
 
-head' :: [a] -> a -> a
-head' [] x = x
-head' (h:t) _ = h
+headOr :: [a] -> a -> a
+headOr [] default' = default'
+headOr (h:t) _ = h
 
 isSmith :: Integer -> Bool
 isSmith n = if (null . factors) n
