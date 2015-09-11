@@ -99,7 +99,7 @@ property_n_ge_sumDigits :: Integer -> Bool
 property_n_ge_sumDigits n = n >= (sumDigits n)
 
 property_n_ge_sumDigits_factors_n :: Integer -> Bool
-property_n_ge_sumDigits_factors_n n = (n - (foldl1 (+) (map sumDigits (factors n)))) >= 0
+property_n_ge_sumDigits_factors_n n = n >= (foldl1 (+) (map sumDigits (factors n)))
 
 newtype Integer' = Integer' Integer deriving Show
 newtype Prime = Prime Integer deriving Show
