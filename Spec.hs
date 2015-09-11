@@ -4,6 +4,7 @@ import Test.QuickCheck
 main :: IO ()
 main = do
   quickCheck property_a_prime_is_smith 
+  -- quickCheck property_sumDigits_ge_n 
   hspec $ do
     describe "Canary Test" $ do
         it "should be green" $ do
@@ -88,6 +89,13 @@ isSmith n = if (null . factors) n
 
 property_a_prime_is_smith (Prime x) = isSmith x
 
+property_sumDigits_ge_n :: Integer -> Bool
+property_sumDigits_ge_n n = (n - (sumDigits n)) >= 0
+
+property_sumDigits_ge_sumDigits_factors_n :: Integer -> Bool
+property_sumDigits_ge_sumDigits_factors_n n = (n - (foldl1 (+) (map sumDigits (factors n)))) >= 0
+
+newtype Integer' = Integer' Integer deriving Show
 newtype Prime = Prime Integer deriving Show
 
 primes = sieve [2..]
@@ -98,4 +106,10 @@ primes' = take 20 primes
 
 instance Arbitrary Prime where
     arbitrary = do i <- arbitrary
-                   return $ primes'!!min (abs i) 19
+                   return $ primes'!!min (Prelude.abs i) 19
+
+instance Arbitrary Integer' where
+    arbitrary = do i <- arbitrary
+                   return $ Main.abs i
+
+abs (Integer' x) = Integer' (Prelude.abs x)
