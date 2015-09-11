@@ -55,7 +55,8 @@ main = hspec $ do
 
 
 sumDigits :: Integer -> Integer
-sumDigits n = (n `mod` 10) + if n >= 10 then (sumDigits (n `div` 10)) else 0
+sumDigits 0 = 0
+sumDigits n = (n `mod` 10) + (sumDigits (n `div` 10))
 
 divides :: Integer -> Integer -> Bool
 divides divisor n = n `mod` divisor == 0
