@@ -4,6 +4,12 @@ This kata is based on the [Smith numbers](https://en.wikipedia.org/wiki/Smith_nu
 
 Similar to [this kata](https://github.com/alvarogarcia7/smith-numbers-kata-java/blob/master/README.md)
 
+## Tools
+
+  * Haskell's QuickCheck property-based testing
+  * Haskell's QuickCheck behaviour-driven testing 
+  * REPL-driven
+
 ## Links
 
   * http://stackoverflow.com/questions/13354726/using-a-custom-generator-vs-arbitrary-instance-in-quickcheck
