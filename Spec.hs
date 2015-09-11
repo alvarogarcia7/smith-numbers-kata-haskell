@@ -3,7 +3,7 @@ import Test.QuickCheck
 
 main :: IO ()
 main = do
-  quickCheck isSmith 
+  quickCheck property_a_prime_is_smith 
   hspec $ do
     describe "Canary Test" $ do
         it "should be green" $ do
@@ -82,3 +82,20 @@ isSmith :: Integer -> Bool
 isSmith n = if (null . factors) n
             then False
             else (sumDigits n) == foldl1 (+) (map sumDigits (factors n))
+
+
+-- Property based testing
+
+property_a_prime_is_smith (Prime x) = isSmith x
+
+newtype Prime = Prime Integer deriving Show
+
+primes = sieve [2..]
+    where
+      sieve (p:xs) = Prime p : sieve [x | x <- xs, x `mod` p > 0]
+
+primes' = take 20 primes
+
+instance Arbitrary Prime where
+    arbitrary = do i <- arbitrary
+                   return $ primes'!!min (abs i) 19
